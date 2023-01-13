@@ -1,0 +1,121 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="{% static 'plugins/bootstrap-5.3.0/css/bootstrap.css' %}">
+    <style>
+        .navbar {
+            border-radius: 0;
+        }
+
+    </style>
+</head>
+
+<body>
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">Navbar</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="/user/list/">程序提交</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="/submit/list/">程序选择</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="/result/list/">结果查看</a>
+                </li>
+
+            </ul>
+            <form class="d-flex" role="search">
+                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-success" type="submit">Search</button>
+            </form>
+        </div>
+    </div>
+</nav>
+<div>
+    <div class="container">
+            <div style=" margin-top: 20px; margin-bottom: 10px">
+            <!-- Button trigger modal -->
+            <a class="btn btn-success"  target="_blank" data-bs-toggle="modal"
+               data-bs-target="#exampleModal">
+                <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>
+                输入参数并且运行输出
+            </a>
+
+            <!-- Modal -->
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                 aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <form method="post" action="/submit/list/">
+                            {% csrf_token %}
+                            <div class="modal-body">
+                                <div class="mb-3">
+                                    <label class="form-label ">选择的文件ID</label>
+                                    <input type="text" class="form-control" name="id_select"
+                                    >
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">输入参数(参数间记得用空格隔开)</label>
+                                    <input type="text" class="form-control" name="params">
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
+                                <button type="submit" class="btn btn-primary">运行</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">文件描述</th>
+                <th scope="col">文件类型</th>
+                <th scope="col">创建时间</th>
+                <th scope="col">操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for obj in query_set %}
+                <tr>
+                    <th scope="row">{{ obj.id }}</th>
+                    <td>{{ obj.name }}</td>
+                    <th scope="col">py</th>
+                    <td>2023.1.1</td>
+                    <td>
+                    <td>
+                        <a class="btn btn-danger btn-xs" href="/file/delete/?nid={{ obj.id}}">删除</a>
+                    </td>
+
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+    </div>
+</div>
+
+
+<script src="{% static 'js/jquery-3.6.3.min.js' %}"></script>
+<script src="{% static 'plugins/bootstrap-5.3.0/js/bootstrap.js' %}"></script>
+</body>
+</html>

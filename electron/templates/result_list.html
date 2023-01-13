@@ -1,0 +1,75 @@
+{% load static %}
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+        <link rel="stylesheet" href="{% static 'plugins/bootstrap-5.3.0/css/bootstrap.css' %}">
+    <style>
+        .navbar {
+            border-radius: 0;
+        }
+
+    </style>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">Navbar</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="/user/list/">程序提交</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="/submit/list/">程序选择</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="/result/list/">结果查看</a>
+                </li>
+
+            </ul>
+            <form class="d-flex" role="search">
+                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-success" type="submit">Search</button>
+            </form>
+        </div>
+    </div>
+</nav>
+<div>
+    <div class="container">
+        <table class="table table-bordered" style=" margin-top: 20px; margin-bottom: 10px">
+            <thead>
+            <tr>
+                <th scope="col">对应文件ID</th>
+                <th scope="col">输入参数</th>
+                <th scope="col">输出结果</th>
+                <th scope="col">报错信息</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for obj in query_set %}
+                <tr>
+                    <th scope="row">{{ obj.result_id }}</th>
+                    <td>{{ obj.inval }}</td>
+                    <td>{{ obj.ouval }}</td>
+                    <td>{{ obj.err}}</td>
+
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+    </div>
+</div>
+<script src="{% static 'js/jquery-3.6.3.min.js' %}"></script>
+<script src="{% static 'plugins/bootstrap-5.3.0/js/bootstrap.js' %}"></script>
+
+</body>
+</html>
